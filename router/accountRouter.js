@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
     try {
         const account = await db('accounts')
             .insert({
@@ -38,6 +38,23 @@ router.post('/', async(req, res) => {
             message: "Error creating account" + error.message
         })
     }
+})
+
+router.put('/:id', (req, res) => {
+    db('accounts')
+        .where({ id : req.params.id })
+        .update({
+            name: req.body.name,
+            budget: req.body.budget
+        })
+        .then(account => {
+            res.status(200).json(account)
+        })
+        .catch(error => {
+            res.status(500).json({
+                message: "Error updating account" + error.message
+            })
+        })
 })
 
 // function validateId (req, res, next) {
