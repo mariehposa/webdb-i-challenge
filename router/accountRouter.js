@@ -57,7 +57,7 @@ router.put('/:id', (req, res) => {
         })
 })
 
-router.delete(':/id', (req, res) => {
+router.delete('/:id', (req, res) => {
     db('accounts')
         .where({ id: req.params.id })
         .del()
