@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
             budget: req.body.budget
         })
         .then(account => {
-            res.status(200).json(account)
+            res.status(200).json(account + 'account got updated!')
         })
         .catch(error => {
             res.status(500).json({
@@ -57,16 +57,18 @@ router.put('/:id', (req, res) => {
         })
 })
 
-// function validateId (req, res, next) {
-//     const { id } = req.params.id;
-
-//     if(req.params.id) {
-
-//     } else {
-//         res.json({
-//             message: "Account not found"
-//         })
-//     }
-// }
+router.delete(':/id', (req, res) => {
+    db('accounts')
+        .where({ id: req.params.id })
+        .del()
+        .then(account => {
+            res.status(200).json(account + 'account got deleted!')
+        })
+        .catch( error => {
+            res.status(500).json({
+                message: "Error deleting account" + error.message
+            })
+        })
+})
 
 module.exports = router;
